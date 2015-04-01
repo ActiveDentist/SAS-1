@@ -1,0 +1,13 @@
+%MACRO WORDS(STRING,ROOT=W,DELM=%STR( ));
+
+   %Local Count Word;
+   %Let Count = 1;
+   %Let Word = %Scan(&String,&Count,&Delm);
+   %Do %While(%Quote(&Word)~=);
+      %Global &Root&Count;
+      %Let &Root&Count = &Word;
+      %Let Count = %Eval(&Count + 1);
+      %Let Word = %Scan(&String,&Count,&Delm);
+      %End;
+   %Eval(&Count - 1)
+%Mend Words;
